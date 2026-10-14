@@ -1,0 +1,18 @@
+2019-031 CHANGE ORDER LOG  (rev 6 - FINAL)
+Owner: MTO   Consultant: Hendry Lam Eng.
+
+CO#  Date        Description                                          Amount
+---  ----------  ---------------------------------------------------  -----------
+01   2019-07-03  Additional full-depth deck repair, span 1 (qty overrun)  $182,400
+02   2019-08-21  Bearing pedestal reconstruction, south abutment           $96,750
+03   2019-10-02  Extended night work for barrier moves (MTO request)       $41,200
+04   2020-05-14  Unforeseen deteriorated ballast wall, north abutment     $214,900
+05   2020-07-29  Revised joint detail (Watson Bowman product sub)          $58,300
+06   2020-10-16  Additional traffic control, Stage 2 extension             $106,450
+                                                                         -----------
+     Total approved change orders                                          $700,000
+
+Original contract price                                                 $8,400,000
+REVISED CONTRACT VALUE (FINAL)                                          $9,100,000
+
+Notes: CO-04 disputed initially, resolved at 85% of claimed value. No outstanding claims at closeout.

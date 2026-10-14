@@ -1,0 +1,13 @@
+HLH EMERGENCY DEPT - CHANGE ORDER LOG (FINAL, closed June 2023)
+
+CO   Date      Description                                          Amount
+01   05/2021   Asbestos abatement beyond survey, Phase 1            $212,000
+02   09/2021   Additional isolation room (owner request)            $386,000
+03   01/2022   Medical gas zone valve relocation                     $94,500
+04   06/2022   COVID-related phase resequencing                     $271,000
+05   11/2022   Nurse call system upgrade to new standard            $236,500
+06   05/2023   Final phase: extra ceiling repairs + wayfinding      $300,000
+                                                                  ----------
+Total COs                                                         $1,500,000
+GMP at award                                                     $18,600,000
+FINAL CONTRACT VALUE                                             $20,100,000

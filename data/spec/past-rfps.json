@@ -1,0 +1,47 @@
+{
+  "note": "SYNTHETIC EVALUATION SET. Each entry is a past RFP plus the projects the company listed as relevant experience in its submitted proposal. 'asOf' is the RFP issue date: projects completed after it did not exist yet and must not be suggested.",
+  "rfps": [
+    {
+      "id": "E1", "asOf": "2024-06-01",
+      "title": "Ministry of Transportation: Highway Structure Rehabilitation, Contract 2024-3017",
+      "requirements": "Proponents shall describe a minimum of three (3) projects completed within the past seven (7) years involving the rehabilitation or replacement of highway bridge structures. Each project shall have a construction value of not less than $5,000,000. Preference will be given to projects constructed under live traffic using staged construction.",
+      "chosen": ["P01", "P04", "P19"]
+    },
+    {
+      "id": "E2", "asOf": "2023-02-01",
+      "title": "Ridgeview District School Board: Elementary School Renewal Program, Bundle B",
+      "requirements": "Provide three (3) projects completed in the last ten (10) years involving renovation or expansion of educational facilities that remained occupied during construction. Minimum construction value $3 million per project. Describe how construction was phased to maintain student and staff safety.",
+      "chosen": ["P06", "P08", "P10"]
+    },
+    {
+      "id": "E3", "asOf": "2024-09-01",
+      "title": "Halbury General Hospital: Inpatient Unit Renovation",
+      "requirements": "Submit three (3) healthcare construction projects completed within the past seven (7) years. At least one project must involve renovation within an occupied, operating healthcare facility with infection prevention and control (ICRA) measures. Projects of any value will be considered.",
+      "chosen": ["P11", "P12", "P13"]
+    },
+    {
+      "id": "E4", "asOf": "2023-06-01",
+      "title": "Town of Millbrook Falls: Water Pollution Control Plant Expansion",
+      "requirements": "Describe three (3) water or wastewater projects completed within the past eight (8) years, each valued at $4,000,000 or more. Public or private owners are acceptable. Demonstrate experience maintaining operations or service continuity during construction.",
+      "chosen": ["P14", "P16", "P17"]
+    },
+    {
+      "id": "E5", "asOf": "2025-01-15",
+      "title": "Ontario Transit Infrastructure Agency: Station Accessibility Upgrades, Package 4",
+      "requirements": "Proponents must provide three (3) projects completed in the last five (5) years with a value of at least $5M each, demonstrating work within or adjacent to active transit or rail corridors, utility coordination, and staging around live traffic or service.",
+      "chosen": ["P18", "P20", "P19"]
+    },
+    {
+      "id": "E6", "asOf": "2022-03-01",
+      "title": "City of Port Calder: New East Side Recreation and Library Hub",
+      "requirements": "Provide three (3) new-build public facility projects completed in the past ten (10) years, each with a construction value of at least $5,000,000. Projects that achieved LEED certification will be rated higher.",
+      "chosen": ["P22", "P25", "P07"]
+    },
+    {
+      "id": "E7", "asOf": "2024-04-01",
+      "title": "Public Services and Procurement: Rehabilitation of a Federal Heritage Building",
+      "requirements": "Describe three (3) projects completed in the past seven (7) years with a value of at least $3 million. Experience with designated heritage buildings, federal clients and personnel security clearance requirements is mandatory for at least one project.",
+      "chosen": ["P26", "P27", "P08"]
+    }
+  ]
+}

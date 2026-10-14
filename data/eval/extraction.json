@@ -1,0 +1,179 @@
+{
+  "generatedAt": "2026-10-02T16:09:42.261Z",
+  "overall": {
+    "correct": 254,
+    "total": 270
+  },
+  "perField": {
+    "clientType": {
+      "correct": 30,
+      "total": 30
+    },
+    "sector": {
+      "correct": 28,
+      "total": 30
+    },
+    "client": {
+      "correct": 30,
+      "total": 30
+    },
+    "location": {
+      "correct": 20,
+      "total": 30
+    },
+    "originalValue": {
+      "correct": 29,
+      "total": 30
+    },
+    "finalValue": {
+      "correct": 29,
+      "total": 30
+    },
+    "startDate": {
+      "correct": 29,
+      "total": 30
+    },
+    "completionDate": {
+      "correct": 30,
+      "total": 30
+    },
+    "deliveryMethod": {
+      "correct": 29,
+      "total": 30
+    }
+  },
+  "emptyCount": 14,
+  "wrongCount": 2,
+  "silentWrongCount": 2,
+  "errors": [
+    {
+      "project": "P06 Lakeview PS Reno FINAL",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Westhaven, ON",
+      "flagged": false
+    },
+    {
+      "project": "P07 St Brigid CES - New Build",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Halbury, ON",
+      "flagged": false
+    },
+    {
+      "project": "P08 Westdale SS Addition",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Westhaven, ON",
+      "flagged": false
+    },
+    {
+      "project": "P09 MapleGrove Montessori",
+      "field": "finalValue",
+      "kind": "empty",
+      "extracted": null,
+      "truth": 2400000,
+      "flagged": true
+    },
+    {
+      "project": "P10 LSC Chem Lab Reno",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Port Calder, ON",
+      "flagged": false
+    },
+    {
+      "project": "P11 HLH ED Reno (Phases 1-5)",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Halbury, ON",
+      "flagged": true
+    },
+    {
+      "project": "P13 EECHC fitout",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Port Calder, ON",
+      "flagged": false
+    },
+    {
+      "project": "P18 WLRT Utility Reloc Pkg2",
+      "field": "sector",
+      "kind": "wrong",
+      "extracted": "roads_utilities",
+      "truth": "transit_rail",
+      "flagged": false
+    },
+    {
+      "project": "P20 MF Station Platform Ext",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Millbrook Falls, ON",
+      "flagged": false
+    },
+    {
+      "project": "P21 Harbourview Garage Repair",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Port Calder, ON",
+      "flagged": false
+    },
+    {
+      "project": "P24 PC Central Library",
+      "field": "originalValue",
+      "kind": "empty",
+      "extracted": null,
+      "truth": 4600000,
+      "flagged": true
+    },
+    {
+      "project": "P24 PC Central Library",
+      "field": "startDate",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "2023-01",
+      "flagged": true
+    },
+    {
+      "project": "P24 PC Central Library",
+      "field": "deliveryMethod",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "design_bid_build",
+      "flagged": true
+    },
+    {
+      "project": "P27 Lake Tamarack VC",
+      "field": "sector",
+      "kind": "wrong",
+      "extracted": "recreation",
+      "truth": "civic_institutional",
+      "flagged": false
+    },
+    {
+      "project": "P27 Lake Tamarack VC",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Tamarack Lake, ON",
+      "flagged": false
+    },
+    {
+      "project": "P30 Harbourfront Commons Podium",
+      "field": "location",
+      "kind": "empty",
+      "extracted": null,
+      "truth": "Port Calder, ON",
+      "flagged": false
+    }
+  ],
+  "missing": []
+}

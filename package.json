@@ -1,0 +1,17 @@
+{
+  "name": "rfp-experience-finder",
+  "private": true,
+  "scripts": {
+    "setup": "npm install --prefix server && npm install --prefix web",
+    "generate": "npm --prefix server run generate",
+    "ingest": "npm --prefix server run ingest --",
+    "eval:extraction": "npm --prefix server run eval:extraction",
+    "eval:search": "npm --prefix server run eval:search",
+    "search": "npm --prefix server run search --",
+    "server": "npm --prefix server run dev",
+    "web": "npm --prefix web run dev",
+    "build": "npm --prefix web run build",
+    "start": "npm --prefix web run build && npm --prefix server start",
+    "typecheck": "npm --prefix server run typecheck && npm --prefix web run build"
+  }
+}

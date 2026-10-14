@@ -1,0 +1,17 @@
+EASTPORT WWTP - CHANGE ORDER LOG
+
+Phase 1 (base $13.1M)
+P1-01  Additional rock excavation, clarifier 4           $412,000
+P1-02  Dewatering extension                              $188,000
+P1-03  Revised RAS pump selection                        $146,000
+Phase 1 COs                                              $746,000
+
+Phase 2 (base $9.3M)
+P2-01  Deteriorated concrete in aeration tank 2          $624,000
+P2-02  MCC arc flash upgrades                            $398,000
+P2-03  Extended bypass pumping (wet spring 2021)         $372,000
+P2-04  SCADA integration added by City                   $260,000
+Phase 2 COs                                            $1,654,000
+
+Total COs                                              $2,400,000
+Revised contract value (both phases)                  $24,800,000

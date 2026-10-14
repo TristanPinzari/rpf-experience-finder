@@ -1,0 +1,376 @@
+{
+  "generatedAt": "2026-10-02T16:24:20.799Z",
+  "summary": {
+    "rfps": 7,
+    "chosenTotal": 21,
+    "recallPicks": 1,
+    "recallTop5": 1,
+    "droppedCitations": 0
+  },
+  "results": [
+    {
+      "id": "E1",
+      "title": "Ministry of Transportation: Highway Structure Rehabilitation, Contract 2024-3017",
+      "asOf": "2024-06-01",
+      "chosen": [
+        {
+          "id": "2019-031-hwy7-op-rehab",
+          "name": "Highway 7 Overpass Rehabilitation",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "qew-guelphline-underpass",
+          "name": "QEW / Guelph Line Underpass Deck Replacement",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "upper-ridge-rd-widening",
+          "name": "Upper Ridge Road Widening",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "qew-guelphline-underpass",
+          "name": "QEW / Guelph Line Underpass Deck Replacement",
+          "companyChose": true
+        },
+        {
+          "id": "2019-031-hwy7-op-rehab",
+          "name": "Highway 7 Overpass Rehabilitation",
+          "companyChose": true
+        },
+        {
+          "id": "upper-ridge-rd-widening",
+          "name": "Upper Ridge Road Widening",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 3186,
+        "filter": 2,
+        "rank": 264,
+        "justify": 11634
+      }
+    },
+    {
+      "id": "E2",
+      "title": "Ridgeview District School Board: Elementary School Renewal Program, Bundle B",
+      "asOf": "2023-02-01",
+      "chosen": [
+        {
+          "id": "lakeview-ps-reno-final",
+          "name": "Lakeview Public School Renewal",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "westdale-ss-addition",
+          "name": "Westdale Secondary School - Science Wing Addition and Facade Restoration",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "lsc-chem-lab-reno",
+          "name": "Applied Science Lab Renovation, B-Wing, Lakeshore College",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "lakeview-ps-reno-final",
+          "name": "Lakeview Public School Renewal",
+          "companyChose": true
+        },
+        {
+          "id": "westdale-ss-addition",
+          "name": "Westdale Secondary School - Science Wing Addition and Facade Restoration",
+          "companyChose": true
+        },
+        {
+          "id": "lsc-chem-lab-reno",
+          "name": "Applied Science Lab Renovation, B-Wing, Lakeshore College",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 2061,
+        "filter": 0,
+        "rank": 267,
+        "justify": 11696
+      }
+    },
+    {
+      "id": "E3",
+      "title": "Halbury General Hospital: Inpatient Unit Renovation",
+      "asOf": "2024-09-01",
+      "chosen": [
+        {
+          "id": "hlh-ed-reno-phases-1-5",
+          "name": "Emergency Department Renovation and Expansion",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "orchard-hills-ltc",
+          "name": "Orchard Hills Long-Term Care Home",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "eechc-fitout",
+          "name": "East End Community Health Centre Fit-Out",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "hlh-ed-reno-phases-1-5",
+          "name": "Emergency Department Renovation and Expansion",
+          "companyChose": true
+        },
+        {
+          "id": "orchard-hills-ltc",
+          "name": "Orchard Hills Long-Term Care Home",
+          "companyChose": true
+        },
+        {
+          "id": "eechc-fitout",
+          "name": "East End Community Health Centre Fit-Out",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 2664,
+        "filter": 1,
+        "rank": 265,
+        "justify": 13484
+      }
+    },
+    {
+      "id": "E4",
+      "title": "Town of Millbrook Falls: Water Pollution Control Plant Expansion",
+      "asOf": "2023-06-01",
+      "chosen": [
+        {
+          "id": "eastport-wwtp-upgrades",
+          "name": "Eastport Wastewater Treatment Plant Upgrades (Phase 1 and Phase 2)",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "oakridge-ave-wm",
+          "name": "Oakridge Avenue Watermain Replacement",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "kessler-pw-system",
+          "name": "Process water treatment system, Westhaven plant",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "eastport-wwtp-upgrades",
+          "name": "Eastport Wastewater Treatment Plant Upgrades (Phase 1 and Phase 2)",
+          "companyChose": true
+        },
+        {
+          "id": "oakridge-ave-wm",
+          "name": "Oakridge Avenue Watermain Replacement",
+          "companyChose": true
+        },
+        {
+          "id": "kessler-pw-system",
+          "name": "Process water treatment system, Westhaven plant",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 1410,
+        "filter": 0,
+        "rank": 321,
+        "justify": 9250
+      }
+    },
+    {
+      "id": "E5",
+      "title": "Ontario Transit Infrastructure Agency: Station Accessibility Upgrades, Package 4",
+      "asOf": "2025-01-15",
+      "chosen": [
+        {
+          "id": "wlrt-utility-reloc-pkg2",
+          "name": "Westhaven LRT - Utility Relocation Package 2",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "mf-station-platform-ext",
+          "name": "Millbrook Falls Station - Platform Extension",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "upper-ridge-rd-widening",
+          "name": "Upper Ridge Road Widening",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "mf-station-platform-ext",
+          "name": "Millbrook Falls Station - Platform Extension",
+          "companyChose": true
+        },
+        {
+          "id": "wlrt-utility-reloc-pkg2",
+          "name": "Westhaven LRT - Utility Relocation Package 2",
+          "companyChose": true
+        },
+        {
+          "id": "upper-ridge-rd-widening",
+          "name": "Upper Ridge Road Widening",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 2147,
+        "filter": 1,
+        "rank": 230,
+        "justify": 13278
+      }
+    },
+    {
+      "id": "E6",
+      "title": "City of Port Calder: New East Side Recreation and Library Hub",
+      "asOf": "2022-03-01",
+      "chosen": [
+        {
+          "id": "chcc-pool",
+          "name": "Carlisle Heights Community Centre and Aquatic Facility",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "fire-stn-7",
+          "name": "Westhaven Fire Station No. 7",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "st-brigid-ces-new-build",
+          "name": "St. Brigid Catholic Elementary School",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "chcc-pool",
+          "name": "Carlisle Heights Community Centre and Aquatic Facility",
+          "companyChose": true
+        },
+        {
+          "id": "st-brigid-ces-new-build",
+          "name": "St. Brigid Catholic Elementary School",
+          "companyChose": true
+        },
+        {
+          "id": "fire-stn-7",
+          "name": "Westhaven Fire Station No. 7",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 3633,
+        "filter": 0,
+        "rank": 213,
+        "justify": 7207
+      }
+    },
+    {
+      "id": "E7",
+      "title": "Public Services and Procurement: Rehabilitation of a Federal Heritage Building",
+      "asOf": "2024-04-01",
+      "chosen": [
+        {
+          "id": "kingsmere-armoury",
+          "name": "Kingsmere Armoury Rehabilitation",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "lake-tamarack-vc",
+          "name": "Lake Tamarack Visitor Centre",
+          "picked": true,
+          "inTop5": true
+        },
+        {
+          "id": "westdale-ss-addition",
+          "name": "Westdale Secondary School - Science Wing Addition and Facade Restoration",
+          "picked": true,
+          "inTop5": true
+        }
+      ],
+      "picks": [
+        {
+          "id": "kingsmere-armoury",
+          "name": "Kingsmere Armoury Rehabilitation",
+          "companyChose": true
+        },
+        {
+          "id": "westdale-ss-addition",
+          "name": "Westdale Secondary School - Science Wing Addition and Facade Restoration",
+          "companyChose": true
+        },
+        {
+          "id": "lake-tamarack-vc",
+          "name": "Lake Tamarack Visitor Centre",
+          "companyChose": true
+        }
+      ],
+      "hitsPicks": 3,
+      "hitsTop5": 3,
+      "total": 3,
+      "droppedCitations": 0,
+      "timingsMs": {
+        "criteria": 4477,
+        "filter": 1,
+        "rank": 469,
+        "justify": 9257
+      }
+    }
+  ]
+}
