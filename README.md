@@ -1,147 +1,129 @@
-# RFP Experience Finder (prototype)
+# Precedent
 
-Finds the most relevant past projects for a new RFP's "relevant experience" section, using a construction company's document archive.
+Finds a construction company's most relevant past projects for a new RFP, with every claim cited back to a source document.
+
+When a construction company bids on a government contract, the proposal must list relevant past projects. The evidence is spread across thousands of documents, and nobody knows all of it. Precedent reads the archive once, then answers each new RFP in about 15 seconds with a ranked shortlist, a justification for each pick, honest gaps, and citations to the original files.
 
 > **All data in this repository is synthetic.** The company, clients, projects and people are fictional.
 
-## Architecture in one paragraph
+## How it works
 
-An ingestion step reads every project folder and uses an LLM to extract one **structured record per project**: client, client type, sector, values, dates and scope. Each field records which document it came from. Documents are also split into chunks and embedded for **semantic search**. At query time the user pastes RFP requirements. The system extracts the hard criteria and filters the catalog on them. It then ranks the survivors with hybrid keyword and vector search, and the LLM writes a justification for each pick, citing source chunks.
+Precedent is a retrieval-augmented generation (RAG) system with two layers. Plain vector search handles fuzzy requirements well but numbers and dates badly, and RFPs mix both.
 
-| Prototype | Production equivalent |
-|---|---|
-| Text files in `data/archive/` | SharePoint, read through Microsoft Graph with delta queries |
-| File hashing to skip unchanged files | Graph delta queries |
-| Plain-text documents | Azure AI Document Intelligence for PDFs and scans |
-| SQLite with FTS5 and in-memory cosine search | Azure AI Search, hybrid search with filters |
-| Gemini API free tier | Azure OpenAI in a Canadian region |
-| One-off ingestion script | Scheduled sync job, for example Temporal or Azure Functions |
+1. **A structured project catalog.** An LLM reads each project's folder and extracts one record: client, client type, sector, original and final value, dates and scope. Every field records the document it came from. When documents contradict each other, the most authoritative figure is used and the record is flagged for human review.
+2. **A hybrid search index.** Every document is split into passages, and each passage is embedded as a vector. Passages are also indexed for full-text keyword search.
 
-## Setup and running the demo
+A search runs four steps:
 
-1. Install Node 22 or newer.
-2. Get a Gemini API key at https://aistudio.google.com/apikey.
-3. Copy `.env.example` to `.env` and paste the key in.
-4. Run `npm run setup` to install dependencies.
-5. Run `npm run ingest` to build the catalog. The archive is already included.
-6. Run `npm start`, then open http://localhost:3001.
+1. **Read the RFP.** The LLM splits the requirements into hard limits, such as "at least $5M, completed in the last 7 years, public client," and soft requirements, such as "construction under live traffic."
+2. **Filter.** SQL applies the hard limits to the catalog. Projects that miss by a small margin come back as near misses, with a warning, only when too few pass. Missing data becomes a warning, never a silent exclusion.
+3. **Rank.** Each surviving project is scored on three signals: meaning, from the best-matching passage for each soft requirement; keywords, from BM25 full-text search; and sector fit. The rankings are merged with reciprocal rank fusion.
+4. **Justify.** The LLM chooses the final projects from the top 8, explains each pick, lists gaps, and cites passages. Code then removes any citation that points to a passage the model wasn't shown.
 
-For frontend development, run `npm run server` and `npm run web` in two terminals, then open http://localhost:5173.
+The interface shows every step, so a reader can see exactly why each project was chosen and open any cited passage in its source document.
 
-The Gemini free tier may use your inputs to improve Google's products. That is fine for synthetic data. Real client data would go through a paid, region-hosted service.
+## Results
 
-## Build stages
-
-### Stage 1: synthetic archive (done)
-
-The archive in `data/archive/` is already included: 92 messy documents, one folder per project. They were written directly from the spec, because the Gemini free-tier quota ran out during generation. Every planted quirk was checked to be in the intended file.
-
-To regenerate the archive with Gemini instead, use a key with billing enabled:
-
-```
-npm run generate -- --force
-```
-
-**Files to read, in this order:**
-
-1. `data/spec/projects.json` is the ground truth: 30 fictional projects. Each has a `quirks` field telling the generator where to make documents messy. Examples include a final value that appears only in the change order log, a completion report that contradicts the change order log, and a project called by three different names.
-2. `data/spec/past-rfps.json` holds 7 historical RFPs and the projects the company actually listed for each. This is the test set for Stage 5. `asOf` is the RFP date, so projects finished after it don't count.
-3. `server/src/domain/taxonomy.ts` defines the fixed vocabularies: client types, sectors, delivery methods. Fixed categories, rather than free text, are what make the catalog filterable.
-4. `server/src/llm/gemini.ts` is the only file that talks to Gemini. Two ideas matter here:
-   - **Throttling and retries.** The free tier allows only a few requests per minute, so calls are spaced out and rate-limit errors are retried.
-   - **Structured output.** A Zod schema is converted to JSON Schema and sent to Gemini, which must answer in that shape. The same schema then validates the answer.
-5. `server/src/scripts/generate-archive.ts` makes one call per project and writes the files. It skips folders that already exist, so you can rerun it after failures.
-
-**Why the ground truth matters:** because we know the true facts, Stage 2 can measure how accurately extraction recovers them. Stage 5 can measure how well search recovers the company's real choices.
-
-### Stage 2: ingestion (done)
-
-```
-npm run ingest                 # process new or changed project folders
-npm run eval:extraction        # score the catalog against the ground truth
-```
-
-Ingest reads each project folder and does three things:
-
-1. **Extracts one record per project** with the LLM. Every field records the filename it came from. When documents disagree, the model uses the most authoritative figure and logs the conflict.
-2. **Flags records for review** when a key filter field is empty, or a value was contested or only approximate.
-3. **Chunks and embeds** every document. Each chunk is embedded with its project name and filename, so a chunk like "phase 2 was delayed" still knows which project it belongs to.
-
-Only folders whose file hashes changed are reprocessed. That is the prototype's version of SharePoint delta sync.
-
-**Results on the synthetic archive:**
+Measured against the synthetic archive's ground truth: 30 projects, 92 deliberately messy documents, and 7 past RFPs with the projects the company actually chose.
 
 | Measure | Result |
 |---|---|
-| Fields extracted correctly | 254 of 270 (94.1%) |
-| Fields left empty, mostly locations the documents never state | 14 |
-| Wrong values | 2, both debatable sector labels |
+| Catalog fields extracted correctly | 254 of 270 (94%) |
+| Wrong values, as opposed to fields left empty | 2, both debatable sector labels |
 | Records flagged for review | 4 of 30, exactly the ones with planted conflicts or gaps |
+| Company's chosen projects found in the final picks | 21 of 21 |
+| Company's chosen projects in the ranking's top 5 | 21 of 21 |
+| Invalid citations removed | 0 |
 
-The hospital record shows the design working: the completion report says $19.8M, the change order log says $20.1M. The catalog holds $20.1M, cites the change order log, and flags the conflict for a human.
+**Caveat:** the documents and the answer key were written together, so this test is easier than real data. It shows the pipeline works end to end, not real-world accuracy. On a real archive, the same method applies: run the company's past RFPs through the system and check whether it finds the projects their estimators chose.
 
-**Lesson for Stage 3:** sector is a single label and two projects reasonably fit two sectors. So sector should boost ranking, not hard-filter projects out.
+## Stack, and the path to production
 
-**Files to read, in this order:**
+React, Vite, TypeScript, Express, SQLite with FTS5, Zod, and the Gemini API for the LLM and embeddings.
 
-1. `server/src/domain/project-record.ts`: the extraction schema. The field descriptions are the instructions the model sees.
-2. `server/src/ingest/extract.ts`: the prompt, plus code checks that reject citations to files that don't exist, bad dates and bad amounts.
-3. `server/src/ingest/chunk.ts`: paragraph-based chunking with overlap.
-4. `server/src/db/db.ts`: the four tables, including the full-text index.
-5. `server/src/scripts/ingest.ts`: change detection and the all-or-nothing database update per project.
-6. `server/src/scripts/eval-extraction.ts`: the scorer. It separates honest empty fields from wrong values.
+| Prototype | Production equivalent |
+|---|---|
+| Text files in `data/archive/` | SharePoint, read through Microsoft Graph |
+| File hashes to reprocess only changed folders | Graph delta queries |
+| Plain-text documents | Azure AI Document Intelligence for PDFs and scans |
+| SQLite full-text search and in-memory vector search | Azure AI Search, hybrid search with filters |
+| Gemini API | Azure OpenAI in a Canadian region |
+| One-off ingestion script | Scheduled sync job, for example Temporal or Azure Functions |
 
-### Stage 3: search pipeline and API (done)
+## Running it
+
+1. Install Node 22 or newer.
+2. Clone the repository:
+   ```
+   git clone https://github.com/TristanPinzari/precedent.git
+   cd precedent
+   ```
+3. Get a Gemini API key at https://aistudio.google.com/apikey.
+4. Copy `.env.example` to `.env` and paste the key in.
+5. Install dependencies:
+   ```
+   npm run setup
+   ```
+6. Build the catalog and search index from the included archive:
+   ```
+   npm run ingest
+   ```
+7. Start the app, then open http://localhost:3001:
+   ```
+   npm start
+   ```
+
+For frontend development, run `npm run server` and `npm run web` in two terminals, then open http://localhost:5173.
+
+The Gemini free tier may use inputs to improve Google's products. That is fine for synthetic data. Real client data would go through a paid, region-hosted service.
+
+### Other commands
 
 ```
-npm run search -- E1           # run a past RFP and compare with what the company chose
-npm run search -- "Provide three projects ..."   # any RFP text
-npm run server                 # API on http://localhost:3001
+npm run search -- E1                  # run a past RFP from the command line, compared with the company's choices
+npm run search -- "Provide three..."  # run any RFP text
+npm run eval:extraction               # score the catalog against the ground truth
+npm run eval:search                   # run all 7 past RFPs and save the results
+npm run ingest -- --force             # reprocess every project
 ```
 
-One search runs four steps. Each step is one file in `server/src/query/`:
+## Code tour
 
-1. **`criteria.ts`**: the LLM turns RFP text into hard limits (minimum value, recency, client type) and soft requirements (short phrases describing the work).
-2. **`filter.ts`**: SQL applies the hard limits to the catalog. Projects that miss by a small margin are near misses, let back in with a warning only when too few pass. Missing data becomes a warning, never a silent exclusion.
-3. **`rank.ts`**: three signals per project. Meaning: the best-matching passage per requirement, by embedding similarity. Keywords: full-text search. Sector: a boost when the sector fits. They are merged with reciprocal rank fusion.
-4. **`justify.ts`**: the LLM picks the final projects from the top 8, explains each one, lists honest gaps, and cites passage ids. Code then drops any citation that wasn't shown to it for that project.
+**Data**
+- `data/spec/projects.json`: the ground truth for 30 fictional projects. Each has a `quirks` field describing the mess planted in its documents. Examples include a final value that appears only in the change order log, a completion report that contradicts the change order log, and a project called by three different names.
+- `data/spec/past-rfps.json`: 7 past RFPs and the projects the company listed for each. Each has an RFP date, so projects finished after it are not eligible.
+- `data/archive/`: the 92 documents, one folder per project, standing in for SharePoint. They were written from the spec by hand, so every planted quirk lands exactly where intended. `npm run generate -- --force` can regenerate them with Gemini instead.
 
-`pipeline.ts` runs the steps and records a trace of each, and `server.ts` exposes it:
+**Ingestion**, in `server/src/`
+- `domain/taxonomy.ts`: fixed vocabularies for client types, sectors and delivery methods. Fixed categories, rather than free text, make the catalog filterable.
+- `domain/project-record.ts`: the extraction schema. The field descriptions are the instructions the model sees.
+- `ingest/extract.ts`: the extraction prompt, plus code checks that reject citations to files that don't exist, malformed dates and invalid amounts.
+- `ingest/chunk.ts`: paragraph-based chunking with overlap.
+- `db/db.ts`: the SQLite tables, including the full-text index.
+- `scripts/ingest.ts`: change detection, and an all-or-nothing database update per project.
+- `llm/gemini.ts`: the only file that calls Gemini. A Zod schema is converted to JSON Schema, Gemini must answer in that shape, and the same schema validates the reply. It also throttles calls, retries errors, and switches models when one is overloaded.
+
+**Search**, in `server/src/query/`
+- `criteria.ts`, `filter.ts`, `rank.ts`, `justify.ts`: the four search steps, in order.
+- `pipeline.ts`: runs the steps and records a trace of each.
+
+**API**, in `server/src/server.ts`
 
 | Endpoint | Returns |
 |---|---|
 | `POST /api/search` | Picks with justifications and citations, plus the full trace |
 | `GET /api/projects` | The catalog |
-| `GET /api/projects/:id` | One record with per-field sources, issues and document list |
+| `GET /api/projects/:id` | One record, with the source for every field, its issues and its documents |
 | `GET /api/documents/:id` | A source document's full text |
+| `GET /api/eval` | The latest evaluation results |
 
-**Results on the 7 past RFPs:** all 21 projects the company actually chose appeared in the final picks and in the ranking's top 5. No citations were invalid. A search takes about 15 seconds, mostly the justification step.
+**Frontend**, in `web/src/`
+- `pages/SearchPage.tsx` and `components/Trace.tsx`: the search screen and the step-by-step trace.
+- `components/DocumentViewer.tsx`: opens a cited document with the passage highlighted.
+- `pages/CatalogPage.tsx`, `pages/ProjectPage.tsx` and `pages/EvalPage.tsx`: the catalog, project records and evaluation results.
 
-**Caveat:** the documents and the answer key were written together, so this test is easier than real data. It shows the pipeline works end to end. Real accuracy has to be measured on the company's own past proposals.
+## Design notes
 
-### Stage 4: React frontend (done)
-
-Built with React and Vite in `web/`. Four pages:
-
-- **Search**: paste RFP text or load one of the 7 past RFPs. Each recommended project shows its key facts, a justification, the requirements it meets with citation buttons, and its gaps. A citation opens the source document with the cited passage highlighted. Below the picks, "How these were chosen" shows the four pipeline steps: extracted criteria, what the filter removed and why, the ranking table with each signal, and citation verification.
-- **Catalog**: every extracted project record, filterable, with records needing review marked.
-- **Project**: one record, with the source document for every field, the extraction issues, and all source documents.
-- **Evaluation**: the extraction and search scores, with the synthetic-data caveat.
-
-**Files to read:** `web/src/api.ts` for the API types, `web/src/pages/SearchPage.tsx` and `web/src/components/Trace.tsx` for the main screen, and `web/src/components/DocumentViewer.tsx` for citation highlighting.
-
-### Stage 5: evaluation (done)
-
-```
-npm run eval:extraction     # catalog fields vs ground truth -> data/eval/extraction.json
-npm run eval:search         # 7 past RFPs vs the company's real choices -> data/eval/search.json
-```
-
-| Measure | Result |
-|---|---|
-| Catalog fields correct | 254 of 270 (94%) |
-| Company's chosen projects found in the final picks | 21 of 21 |
-| Company's chosen projects in the ranking's top 5 | 21 of 21 |
-| Invalid citations removed | 0 |
-
-The same method works on real data: feed the company's past RFPs through the system and check whether it finds the projects their estimators chose.
+- **Sector boosts ranking instead of filtering.** Some projects reasonably fit two sectors, such as utility relocation for a light rail line. A hard sector filter would wrongly drop them.
+- **Empty is better than wrong.** Extraction leaves a field empty when no document states it, and the scorer counts empty fields separately from wrong values. A wrong value on an unflagged record is the failure that matters most.
+- **Review flags have to be rare to mean anything.** An early version flagged 29 of 30 records. Issues now carry a severity, and only real conflicts, approximate figures and missing key fields trigger review.
